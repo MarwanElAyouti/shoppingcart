@@ -16,3 +16,6 @@ lint:
 
 test:
 	pytest -v
+
+coverage:
+	pytest --cov

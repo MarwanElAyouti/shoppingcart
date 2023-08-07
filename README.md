@@ -63,3 +63,4 @@ When you are ready to submit your completed exercise, please either:
 ## Testing
 - `pytest -v` - test all directories
 - `pytest {path to specific test file}`
+- `pytest --cov` test coverage
