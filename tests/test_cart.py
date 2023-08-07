@@ -65,3 +65,22 @@ def test_csv_cart(cart_csv: ShoppingCart):
   receipt = cart_csv.print_receipt()
 
   assert receipt[0] == "mango - 1 - €1.50" 
+
+
+
+def test_cart_total(cart: ShoppingCart):
+  cart.add_item("apple", 2)
+  cart.add_item("banana", 3)
+  cart.add_item("kiwi", 1)
+  
+  receipt = cart.print_receipt()
+  # Last line of the receipt should have the total
+  assert cart._total_price == 8.3
+  assert receipt[-1] == "Total - €8.30"
+  
+  # Add more apples to test count being updated
+  cart.add_item("apple", 2)
+  receipt = cart.print_receipt()
+  assert cart._total_price == 10.3
+  assert receipt[-1] == "Total - €10.30"
+  
