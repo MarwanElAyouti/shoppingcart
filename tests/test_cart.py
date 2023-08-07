@@ -1,10 +1,4 @@
 from shoppingcart.cart import ShoppingCart
-import pytest
-
-
-@pytest.fixture
-def cart() -> ShoppingCart:
-  return ShoppingCart()
 
 
 def compare_receipts(expected_receipt, receipt):
@@ -40,17 +34,34 @@ def test_add_different_items(cart: ShoppingCart):
   assert receipt[1] == "kiwi - 1 - €3.00"
 
 def test_print_receipt_order(cart: ShoppingCart):
-    # Add items to the cart in a specific order
-    cart.add_item("banana", 3)
-    cart.add_item("kiwi", 1)
-    cart.add_item("apple", 2)
-    # Generate the receipt
-    receipt = cart.print_receipt()
+  # Add items to the cart in a specific order
+  cart.add_item("banana", 3)
+  cart.add_item("kiwi", 1)
+  cart.add_item("apple", 2)
+  # Generate the receipt
+  receipt = cart.print_receipt()
 
-    # Expected order of items in the receipt
-    expected_receipt_order = [
-        "banana - 3 - €3.30",
-        "kiwi - 1 - €3.00",
-        "apple - 2 - €2.00",
-    ]
-    compare_receipts(expected_receipt_order, receipt)
+  # Expected order of items in the receipt
+  expected_receipt_order = [
+      "banana - 3 - €3.30",
+      "kiwi - 1 - €3.00",
+      "apple - 2 - €2.00",
+  ]
+  compare_receipts(expected_receipt_order, receipt)
+
+def test_json_cart(cart_json: ShoppingCart):
+   # Add an item that wasn't in the default items
+   cart_json.add_item("orange", 2)
+
+   receipt = cart_json.print_receipt()
+
+   assert receipt[0] == "orange - 2 - €1.00"
+
+
+def test_csv_cart(cart_csv: ShoppingCart):
+   
+  cart_csv.add_item("mango", 1 )
+  
+  receipt = cart_csv.print_receipt()
+
+  assert receipt[0] == "mango - 1 - €1.50" 
