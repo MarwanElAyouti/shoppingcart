@@ -54,3 +54,15 @@ def cart_json(product_prices_json):
 def cart_csv(product_prices_csv):
     product_prices_csv = CSVProductPrices(product_prices_csv)
     return ShoppingCart(product_prices_csv)
+
+@pytest.fixture
+def cart_usd():
+    return ShoppingCart(currency_code="USD")
+
+@pytest.fixture
+def cart_gbp():
+    return ShoppingCart(currency_code="GBP")
+
+@pytest.fixture
+def cart_jpy():
+    return ShoppingCart(currency_code="JPY")
