@@ -8,6 +8,7 @@ class ShoppingCart(abc.ShoppingCart):
     def __init__(self, product_prices: abc.ProductPriceDataSource = product_prices.DefaultProductPrices()):
         self._items = OrderedDict()
         self._product_prices = product_prices
+        self._total_price = 0.0
 
     def add_item(self, product_code: str, quantity: int):
         if product_code not in self._items:
@@ -16,17 +17,24 @@ class ShoppingCart(abc.ShoppingCart):
             q = self._items[product_code]
             self._items[product_code] = q + quantity
 
+        # Update the total price incrementally
+        price = self._get_product_price(product_code) * quantity
+        self._total_price += price
+
+
     def print_receipt(self) -> typing.List[str]:
         lines = []
 
-        for item in self._items.items():
-            price = self._get_product_price(item[0]) * item[1]
+        for product_code, quantity in self._items.items():
+            price = self._get_product_price(product_code) * quantity
 
             price_string = "€%.2f" % price
 
-            lines.append(item[0] + " - " + str(item[1]) + ' - ' + price_string)
+            lines.append(f"{product_code} - {quantity} - {price_string}")
 
+        lines.append(f"Total - €{self._total_price:.2f}")
         return lines
 
     def _get_product_price(self, product_code: str) -> float:
         return self._product_prices.get_product_price(product_code)
+    
