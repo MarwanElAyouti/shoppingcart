@@ -26,4 +26,40 @@ When you are ready to submit your completed exercise, please either:
 
 
 
-## Install instructions
+## Requirements
+* Python
+  *  v3.8.10 (exact version) using [Pyenv](https://github.com/pyenv/pyenv)
+
+      * `pyenv install 3.8.10`
+      * `pyenv versions` to confirm that **3.8.10** is in the list of Python versions
+  * Inside the project directory
+      * `rm -rf .venv` to remove old environment
+      * `pyenv local 3.8.10` to set specific Python version at project level (not OS level)
+      * `python --version` to check if it's **3.8.10**. If not, then
+          * `echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc` or `~/.bash_profile`
+          * `echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc` or `~/.bash_profile`
+          * `echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc` or `~/.bash_profile`
+      * Re-open shell and `python --version` to check if it's **3.8.10** at project level
+* Install [Poetry](https://python-poetry.org/docs/)
+  * `curl -sSL https://install.python-poetry.org | python3 -`
+  * Inside the project directory
+      * `poetry shell` to activate poetry virtual environment
+      * `python --version` to confirm that **3.8.10** inside the environment as well
+
+## Setup the development environment
+* Confirm you have all system requirements above
+* Clone the repository to your local machine
+* Download & install dependencies by running `poetry install`
+
+## Working with requirements/dependencies
+ - For adding a requirement, you can run: `poetry add {requirement}`
+ - For adding a dev requirement, you can run: `poetry add {requirement} --dev`
+ - For updating a requirement, you can run: `poetry update {requirement}`
+ - For removal of a requirement, you can run: `poetry remove {requirement}`
+
+## Run lint & format
+- `isort .` - sort package imports
+- `black .` - format the code
+## Testing
+- `pytest -v` - test all directories
+- `pytest {path to specific test file}`
