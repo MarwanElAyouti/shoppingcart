@@ -38,3 +38,19 @@ def test_add_different_items(cart: ShoppingCart):
 
   assert receipt[0] == "banana - 1 - €1.10"
   assert receipt[1] == "kiwi - 1 - €3.00"
+
+def test_print_receipt_order(cart: ShoppingCart):
+    # Add items to the cart in a specific order
+    cart.add_item("banana", 3)
+    cart.add_item("kiwi", 1)
+    cart.add_item("apple", 2)
+    # Generate the receipt
+    receipt = cart.print_receipt()
+
+    # Expected order of items in the receipt
+    expected_receipt_order = [
+        "banana - 3 - €3.30",
+        "kiwi - 1 - €3.00",
+        "apple - 2 - €2.00",
+    ]
+    compare_receipts(expected_receipt_order, receipt)
