@@ -8,9 +8,9 @@ You may make any technical decisions you would like, but must not change the giv
 Please treat this code as an element of a larger production system.
 
 The objectives for this exercise are as follows:
-- Make the receipt print items in the order that they were added.
-- Add a 'Total' line to the receipt. This should be the full price we should charge the customer.
-- Be able to fetch product prices from an external source (E.g. json file, csv, database).
+- ~~Make the receipt print items in the order that they were added.~~
+- ~~Add a 'Total' line to the receipt. This should be the full price we should charge the customer.~~
+- ~~Be able to fetch product prices from an external source (E.g. json file, csv, database).~~
 - Be able to display the product prices in different currencies (not only Euro).
 - Update the test suite to extend coverage and make the tests robust so that changes to the code should rarely require changes to the tests.
 - Any other changes which improve the reliability of this code in production.
