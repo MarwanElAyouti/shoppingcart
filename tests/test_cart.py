@@ -67,7 +67,6 @@ def test_csv_cart(cart_csv: ShoppingCart):
   assert receipt[0] == "mango - 1 - €1.50" 
 
 
-
 def test_cart_total(cart: ShoppingCart):
   cart.add_item("apple", 2)
   cart.add_item("banana", 3)
@@ -81,6 +80,38 @@ def test_cart_total(cart: ShoppingCart):
   # Add more apples to test count being updated
   cart.add_item("apple", 2)
   receipt = cart.print_receipt()
+  
   assert cart._total_price == 10.3
   assert receipt[-1] == "Total - €10.30"
+
+def test_usd_cart(cart_usd: ShoppingCart):
+  cart_usd.add_item("apple", 2)
   
+  receipt = cart_usd.print_receipt()
+  assert receipt[0] == "apple - 2 - $2.24"
+
+  assert receipt[-1] == "Total - $2.24"
+
+
+def test_jpy_cart(cart_jpy: ShoppingCart):
+  cart_jpy.add_item("banana", 2)
+  cart_jpy.add_item("apple", 2)
+  receipt = cart_jpy.print_receipt()
+  expected_receipt = [
+    "banana - 2 - ¥284.97",
+    "apple - 2 - ¥259.06",
+    "Total - ¥544.03"
+  ]
+  compare_receipts(expected_receipt, receipt)
+
+def test_gbp_cart(cart_gbp: ShoppingCart): 
+  cart_gbp.add_item("banana", 2)
+  cart_gbp.add_item("apple", 2)
+  receipt = cart_gbp.print_receipt()
+  expected_receipt = [
+    "banana - 2 - £1.89",
+    "apple - 2 - £1.72",
+    "Total - £3.61"
+  ]
+
+  compare_receipts(expected_receipt, receipt)
