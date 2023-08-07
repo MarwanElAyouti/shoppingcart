@@ -1,11 +1,13 @@
 import typing
 
+from . import product_prices
 from . import abc
 from collections import OrderedDict
 
 class ShoppingCart(abc.ShoppingCart):
-    def __init__(self):
+    def __init__(self, product_prices: abc.ProductPriceDataSource = product_prices.DefaultProductPrices()):
         self._items = OrderedDict()
+        self._product_prices = product_prices
 
     def add_item(self, product_code: str, quantity: int):
         if product_code not in self._items:
@@ -27,15 +29,4 @@ class ShoppingCart(abc.ShoppingCart):
         return lines
 
     def _get_product_price(self, product_code: str) -> float:
-        price = 0.0
-
-        if product_code == 'apple':
-            price = 1.0
-
-        elif product_code == 'banana':
-            price = 1.1
-
-        elif product_code == 'kiwi':
-            price = 3.0
-
-        return price
+        return self._product_prices.get_product_price(product_code)
