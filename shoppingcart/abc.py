@@ -14,6 +14,7 @@ class ShoppingCart(abc.ABC):
 
 
 class ProductPriceDataSource(abc.ABC):
+    #Assume all product prices are in euro
     @abc.abstractmethod
     def get_product_price(self, product_code: str) -> float:
         pass
