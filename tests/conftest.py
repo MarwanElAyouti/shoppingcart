@@ -1,21 +1,20 @@
-import pytest
 import csv
 import json
+
+import pytest
+
 from shoppingcart.cart import ShoppingCart
 from shoppingcart.product_prices import CSVProductPrices, JSONProductPrices
 
+
 @pytest.fixture
 def cart() -> ShoppingCart:
-  return ShoppingCart()
+    return ShoppingCart()
+
 
 @pytest.fixture
 def product_prices_json(tmp_path):
-    product_prices = {
-        "apple": 1.0,
-        "banana": 1.1,
-        "kiwi": 3.0,
-        "orange": 0.5
-    }
+    product_prices = {"apple": 1.0, "banana": 1.1, "kiwi": 3.0, "orange": 0.5}
 
     # Create a temporary JSON file for testing
     file_path = tmp_path / "test_product_prices.json"
@@ -24,13 +23,14 @@ def product_prices_json(tmp_path):
 
     return file_path
 
+
 @pytest.fixture
 def product_prices_csv(tmp_path):
     product_prices = [
         {"product_code": "apple", "price": "1.0"},
         {"product_code": "banana", "price": "1.1"},
         {"product_code": "kiwi", "price": "3.0"},
-        {"product_code": "mango", "price": "1.5"}
+        {"product_code": "mango", "price": "1.5"},
     ]
 
     # Create a temporary CSV file for testing
@@ -55,13 +55,16 @@ def cart_csv(product_prices_csv):
     product_prices_csv = CSVProductPrices(product_prices_csv)
     return ShoppingCart(product_prices_csv)
 
+
 @pytest.fixture
 def cart_usd():
     return ShoppingCart(currency_code="USD")
 
+
 @pytest.fixture
 def cart_gbp():
     return ShoppingCart(currency_code="GBP")
+
 
 @pytest.fixture
 def cart_jpy():

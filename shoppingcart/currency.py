@@ -8,8 +8,11 @@ class CurrencySymbol(Enum):
     JPY = "¥"
     # Add more currency codes and symbols as needed
 
+
 class Currency:
-    def __init__(self, code: str = "EUR", symbol: str = CurrencySymbol.EUR.value, conversion_rate_from_eur: float = 1.0):
+    def __init__(
+        self, code: str = "EUR", symbol: str = CurrencySymbol.EUR.value, conversion_rate_from_eur: float = 1.0
+    ):
         self.code = code
         self.symbol = symbol
         self.conversion_rate_from_eur = conversion_rate_from_eur
@@ -20,11 +23,10 @@ class Currency:
     def convert_from_euro(self, amount: float) -> float:
         if self.code == "EUR":
             return amount
-        return amount * self.conversion_rate_from_eur 
-    
+        return amount * self.conversion_rate_from_eur
 
     @classmethod
-    def get_currency(cls, code: str) -> 'Currency':
+    def get_currency(cls, code: str) -> "Currency":
         currencies = {
             "USD": Currency("USD", CurrencySymbol.USD.value, 1.12),
             "EUR": Currency("EUR", CurrencySymbol.EUR.value, 1.0),

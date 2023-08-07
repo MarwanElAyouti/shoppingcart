@@ -1,8 +1,8 @@
 import abc
 import typing
 
-class ShoppingCart(abc.ABC):
 
+class ShoppingCart(abc.ABC):
     @abc.abstractmethod
     def add_item(self, product_code: str, quantity: int):
         pass
@@ -10,7 +10,6 @@ class ShoppingCart(abc.ABC):
     @abc.abstractmethod
     def print_receipt(self) -> typing.List[str]:
         pass
-
 
 
 class ProductPriceDataSource(abc.ABC):

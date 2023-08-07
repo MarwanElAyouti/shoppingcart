@@ -1,9 +1,10 @@
 import typing
+from collections import OrderedDict
 
 from . import abc
+from .currency import Currency
 from .product_prices import DefaultProductPrices
-from .currency import Currency 
-from collections import OrderedDict
+
 
 class ShoppingCart(abc.ShoppingCart):
     def __init__(self, product_prices: abc.ProductPriceDataSource = DefaultProductPrices(), currency_code: str = "EUR"):
@@ -23,7 +24,6 @@ class ShoppingCart(abc.ShoppingCart):
         price = self._get_product_price(product_code) * quantity
         self._total_price += price
 
-
     def print_receipt(self) -> typing.List[str]:
         lines = []
 
@@ -33,13 +33,14 @@ class ShoppingCart(abc.ShoppingCart):
             price_string = self._format_price(price)
 
             lines.append(f"{product_code} - {quantity} - {price_string}")
+
         total_price_string = self._format_price(self._total_price)
         lines.append(f"Total - {total_price_string}")
         return lines
-    
+
     def _get_product_price(self, product_code: str) -> float:
         return self._product_prices.get_product_price(product_code)
-    
+
     def _format_price(self, amount: float) -> str:
         converted_price = self._currency.convert_from_euro(amount)
         return self._currency.format(converted_price)
