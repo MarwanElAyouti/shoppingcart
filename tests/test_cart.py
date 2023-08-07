@@ -1,8 +1,20 @@
 from shoppingcart.cart import ShoppingCart
+import pytest
 
 
-def test_add_item():
-  cart = ShoppingCart()
+@pytest.fixture
+def cart() -> ShoppingCart:
+  return ShoppingCart()
+
+
+def compare_receipts(expected_receipt, receipt):
+    # Compare the order of items in the generated receipt with the expected order
+    # Tests that the shopping cart print_receipt prints items in the order that they were added.
+    for expected_item, actual_item in zip(expected_receipt, receipt):
+        assert expected_item == actual_item
+
+
+def test_add_item(cart: ShoppingCart):
   cart.add_item("apple", 1)
 
   receipt = cart.print_receipt()
@@ -10,8 +22,7 @@ def test_add_item():
   assert receipt[0] == "apple - 1 - €1.00"
 
 
-def test_add_item_with_multiple_quantity():
-  cart = ShoppingCart()
+def test_add_item_with_multiple_quantity(cart: ShoppingCart):
   cart.add_item("apple", 2)
 
   receipt = cart.print_receipt()
@@ -19,8 +30,7 @@ def test_add_item_with_multiple_quantity():
   assert receipt[0] == "apple - 2 - €2.00"
 
 
-def test_add_different_items():
-  cart = ShoppingCart()
+def test_add_different_items(cart: ShoppingCart):
   cart.add_item("banana", 1)
   cart.add_item("kiwi", 1)
 
